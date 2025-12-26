@@ -59,6 +59,14 @@ Logikey comes with essential features to accompany your every conversation:
 - **Deployment**: Private Model Adapter Hub via HuggingFace.
 
 
+---
+
+## 🏗️ Project Structure
+
+This project is divided into two main repositories:
+* 📱 **Android Client**: [logikey-app](https://github.com/Dzvelocity/logikey-app) (Current)
+* ⚙️ **AI Backend**: [logikey-be](https://github.com/dzikrimr/logikey-be) (FastAPI + Llama-3 Inference)
+
 
 ---
 
