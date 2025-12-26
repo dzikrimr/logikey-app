@@ -45,7 +45,7 @@ fun FallacyDetailSheet(
             .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
             .background(Color.White)
     ) {
-        // --- DRAG HANDLE (Pemicu tutup sheet) ---
+        // --- GAGANG GESER (Pemicu tutup sheet) ---
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -75,12 +75,12 @@ fun FallacyDetailSheet(
                 .verticalScroll(rememberScrollState())
                 .padding(bottom = 32.dp)
         ) {
-            // Judul Fallacy (Contoh: Ad Hominem Fallacy)
+            // Judul Fallacy
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Default.Warning, null, tint = AmberLogic, modifier = Modifier.size(24.dp))
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
-                    text = "${response.label ?: "Logical"} Fallacy",
+                    text = "Fallacy ${response.label ?: "Logika"}",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = Color.Black
@@ -89,11 +89,11 @@ fun FallacyDetailSheet(
 
             Spacer(modifier = Modifier.height(18.dp))
 
-            // Bagian Penjelasan (Paragraf tunggal)
-            Text("Explanation", fontWeight = FontWeight.Bold, color = DeepIndigo, fontSize = 14.sp)
+            // Bagian Penjelasan
+            Text("Penjelasan", fontWeight = FontWeight.Bold, color = DeepIndigo, fontSize = 14.sp)
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = response.explanation ?: "No explanation available.",
+                text = response.explanation ?: "Tidak ada penjelasan tersedia.",
                 fontSize = 15.sp,
                 color = Color(0xFF444444),
                 lineHeight = 22.sp
@@ -101,8 +101,8 @@ fun FallacyDetailSheet(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Bagian Counter-argument (List yang sudah terpisah kotaknya)
-            Text("Logical Counter-argument", fontWeight = FontWeight.Bold, color = DeepIndigo, fontSize = 14.sp)
+            // Bagian Counter-argument
+            Text("Saran Argumen Logis", fontWeight = FontWeight.Bold, color = DeepIndigo, fontSize = 14.sp)
             Spacer(modifier = Modifier.height(12.dp))
 
             if (counterList.isNotEmpty()) {
@@ -115,7 +115,7 @@ fun FallacyDetailSheet(
                             .padding(16.dp),
                         verticalAlignment = Alignment.Top
                     ) {
-                        // Lingkaran Nomor Statis
+                        // Lingkaran Nomor
                         Box(
                             modifier = Modifier.size(24.dp).background(AmberLogic, CircleShape),
                             contentAlignment = Alignment.Center
@@ -128,7 +128,7 @@ fun FallacyDetailSheet(
                             )
                         }
                         Spacer(modifier = Modifier.width(12.dp))
-                        // Teks Argumen (Item list dari Python)
+                        // Teks Argumen
                         Text(
                             text = arg,
                             fontSize = 14.sp,
@@ -139,11 +139,12 @@ fun FallacyDetailSheet(
                     }
                 }
             } else {
-                Text("No suggestions available.", fontSize = 14.sp, color = Color.Gray)
+                Text("Tidak ada saran tersedia.", fontSize = 14.sp, color = Color.Gray)
             }
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            // Tombol Tutup
             Button(
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth().height(56.dp),
@@ -151,7 +152,7 @@ fun FallacyDetailSheet(
                 shape = RoundedCornerShape(16.dp),
                 elevation = null
             ) {
-                Text("Dismiss", color = Color.Gray, fontWeight = FontWeight.Bold)
+                Text("Tutup", color = Color.Gray, fontWeight = FontWeight.Bold)
             }
         }
     }

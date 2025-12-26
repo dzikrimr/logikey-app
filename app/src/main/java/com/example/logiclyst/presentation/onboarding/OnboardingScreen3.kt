@@ -80,7 +80,7 @@ fun OnboardingScreen3(navController: NavController, onComplete: () -> Unit) {
 
         // Judul & Deskripsi
         Text(
-            text = "Perfect! You're All Set",
+            text = "Luar Biasa! Semua Siap",
             fontSize = 26.sp,
             fontWeight = FontWeight.Bold,
             color = Color(0xFF101820)
@@ -89,7 +89,7 @@ fun OnboardingScreen3(navController: NavController, onComplete: () -> Unit) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Logikey keyboard is now active and ready to help you identify logical fallacies in real-time as you type.",
+            text = "Keyboard Logikey kini sudah aktif dan siap membantu Anda mengidentifikasi fallacy secara real-time saat Anda mengetik.",
             fontSize = 16.sp,
             color = TextGray,
             textAlign = TextAlign.Center,
@@ -98,7 +98,7 @@ fun OnboardingScreen3(navController: NavController, onComplete: () -> Unit) {
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        // Main Action Button
+        // Tombol Aksi Utama
         Button(
             onClick = onComplete,
             modifier = Modifier
@@ -108,7 +108,7 @@ fun OnboardingScreen3(navController: NavController, onComplete: () -> Unit) {
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                text = "Start Using Logikey",
+                text = "Mulai Gunakan Logikey",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )

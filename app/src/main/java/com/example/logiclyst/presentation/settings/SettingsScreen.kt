@@ -55,11 +55,9 @@ fun SettingsScreen(
     var showClearHistoryDialog by remember { mutableStateOf(false) }
 
     // --- LOGIKA VALIDASI SISTEM (LIFECYCLE) ---
-    // Mengecek ulang status haptic sistem setiap kali user kembali ke aplikasi (Resume)
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
-                // Jika haptic sistem mati, paksa toggle aplikasi ikut mati
                 if (!isSystemHapticEnabled(context)) {
                     isHapticEnabled = false
                 }
@@ -72,10 +70,10 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Settings", fontWeight = FontWeight.Bold) },
+                title = { Text("Pengaturan", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Kembali")
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.White)
@@ -91,16 +89,16 @@ fun SettingsScreen(
                 .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            // --- SECTION: AI CONFIGURATION ---
-            SettingsGroupCard(title = "AI Configuration", iconId = R.drawable.ic_brain, iconBg = PrimaryBlueSettings) {
+            // --- SECTION: KONFIGURASI AI ---
+            SettingsGroupCard(title = "Konfigurasi AI", iconId = R.drawable.ic_brain, iconBg = PrimaryBlueSettings) {
                 Column(modifier = Modifier.padding(top = 16.dp)) {
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text("AI Sensitivity", fontWeight = FontWeight.SemiBold)
+                        Text("Sensitivitas AI", fontWeight = FontWeight.SemiBold)
                         Text(
                             text = when {
-                                aiSensitivity > 0.65f -> "Critical"
-                                aiSensitivity > 0.35f -> "Balanced"
-                                else -> "Relaxed"
+                                aiSensitivity > 0.65f -> "Kritis"
+                                aiSensitivity > 0.35f -> "Seimbang"
+                                else -> "Santai"
                             },
                             color = if (aiSensitivity > 0.35f) KeyboardGreen else Color.Gray,
                             fontWeight = FontWeight.Bold
@@ -118,17 +116,17 @@ fun SettingsScreen(
                         )
                     )
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text("Relaxed", fontSize = 11.sp, color = Color.Gray)
-                        Text("Balanced", fontSize = 11.sp, color = Color.Gray)
-                        Text("Critical", fontSize = 11.sp, color = Color.Gray)
+                        Text("Santai", fontSize = 11.sp, color = Color.Gray)
+                        Text("Seimbang", fontSize = 11.sp, color = Color.Gray)
+                        Text("Kritis", fontSize = 11.sp, color = Color.Gray)
                     }
 
                     HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp), thickness = 0.5.dp, color = StrokeLight)
 
                     SettingSwitchItem(
                         iconId = R.drawable.ic_magic,
-                        title = "Real-time Auto-Analyze",
-                        subtitle = "Enable continuous text stream analysis",
+                        title = "Analisis Otomatis Real-time",
+                        subtitle = "Aktifkan analisis aliran teks berkelanjutan",
                         checked = isDetectionOn,
                         onCheckedChange = { isDetectionOn = it },
                         iconTint = PrimaryBlueSettings,
@@ -137,20 +135,20 @@ fun SettingsScreen(
                 }
             }
 
-            // --- SECTION: KEYBOARD CUSTOMIZATION ---
-            SettingsGroupCard(title = "Keyboard Customization", iconId = R.drawable.ic_keyboard, iconBg = KeyboardGreen) {
+            // --- SECTION: KUSTOMISASI KEYBOARD ---
+            SettingsGroupCard(title = "Kustomisasi Keyboard", iconId = R.drawable.ic_keyboard, iconBg = KeyboardGreen) {
                 Column(modifier = Modifier.padding(top = 16.dp)) {
                     SettingSwitchItem(
                         iconId = R.drawable.ic_haptic,
-                        title = "Haptic Feedback",
-                        subtitle = "Vibration on key press",
+                        title = "Umpan Balik Haptik",
+                        subtitle = "Getaran saat tombol ditekan",
                         checked = isHapticEnabled,
                         onCheckedChange = { newValue ->
                             if (newValue) {
                                 if (isSystemHapticEnabled(context)) {
                                     isHapticEnabled = true
                                 } else {
-                                    showHapticWarning = true // Munculkan dialog, jangan nyalakan toggle
+                                    showHapticWarning = true
                                 }
                             } else {
                                 isHapticEnabled = false
@@ -165,18 +163,18 @@ fun SettingsScreen(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(painterResource(R.drawable.ic_theme), null, tint = KeyboardGreen, modifier = Modifier.size(20.dp))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Theme", fontWeight = FontWeight.SemiBold)
+                        Text("Tema", fontWeight = FontWeight.SemiBold)
                     }
                     Spacer(modifier = Modifier.height(12.dp))
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        ThemeButton(Modifier.weight(1f), "Light Mode", !isDarkMode) { isDarkMode = false }
-                        ThemeButton(Modifier.weight(1f), "Dark Mode", isDarkMode) { isDarkMode = true }
+                        ThemeButton(Modifier.weight(1f), "Mode Terang", !isDarkMode) { isDarkMode = false }
+                        ThemeButton(Modifier.weight(1f), "Mode Gelap", isDarkMode) { isDarkMode = true }
                     }
                 }
             }
 
-            // --- SECTION: PRIVACY & SECURITY ---
-            SettingsGroupCard(title = "Privacy & Security", iconId = R.drawable.ic_shield, iconBg = Color(0xFFF9A825)) {
+            // --- SECTION: PRIVASI & KEAMANAN ---
+            SettingsGroupCard(title = "Privasi & Keamanan", iconId = R.drawable.ic_shield, iconBg = Color(0xFFF9A825)) {
                 Column(modifier = Modifier.padding(top = 16.dp)) {
                     Box(
                         modifier = Modifier.fillMaxWidth().background(Color(0xFFFFF8E1), RoundedCornerShape(12.dp)).padding(16.dp)
@@ -185,9 +183,9 @@ fun SettingsScreen(
                             Icon(painterResource(R.drawable.ic_info), null, tint = Color(0xFFF9A825), modifier = Modifier.size(20.dp))
                             Spacer(modifier = Modifier.width(12.dp))
                             Column {
-                                Text("Local Processing", fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                                Text("Pemrosesan Lokal", fontWeight = FontWeight.Bold, fontSize = 14.sp)
                                 Text(
-                                    "Your analysis history is stored strictly on your device's local database. No data is sent to cloud storage.",
+                                    "Riwayat analisis Anda disimpan sepenuhnya di database lokal perangkat Anda. Tidak ada data yang dikirim ke penyimpanan awan (cloud).",
                                     fontSize = 12.sp, color = Color.Gray, lineHeight = 18.sp
                                 )
                             }
@@ -203,7 +201,7 @@ fun SettingsScreen(
                     ) {
                         Icon(painterResource(R.drawable.ic_trash), null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Clear All History", fontWeight = FontWeight.Bold)
+                        Text("Hapus Semua Riwayat", fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -217,7 +215,7 @@ fun SettingsScreen(
             onDismissRequest = { showHapticWarning = false },
             containerColor = Color.White,
             title = { Text("Haptic Nonaktif di Sistem") },
-            text = { Text("Masukan sentuhan di pengaturan sistem HP Anda mati. Silakan aktifkan terlebih dahulu agar fitur getar dapat digunakan.") },
+            text = { Text("Umpan balik sentuhan di pengaturan sistem ponsel Anda mati. Silakan aktifkan terlebih dahulu agar fitur getar dapat digunakan.") },
             confirmButton = {
                 TextButton(onClick = {
                     context.startActivity(Intent(Settings.ACTION_SOUND_SETTINGS))

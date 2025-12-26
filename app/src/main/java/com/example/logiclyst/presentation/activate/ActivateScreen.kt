@@ -90,7 +90,7 @@ fun ActivateScreen() {
             ) {
                 Column {
                     Text("Logikey", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1A237E))
-                    Text("Keyboard Control", fontSize = 14.sp, color = Color.Gray)
+                    Text("Kontrol Keyboard", fontSize = 14.sp, color = Color.Gray)
                 }
                 Box(
                     modifier = Modifier
@@ -116,9 +116,9 @@ fun ActivateScreen() {
 
         Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp)) {
 
-            // --- SECTION: YOUR PROGRESS ---
+            // --- SECTION: PROGRESS ANDA ---
             Text(
-                text = "Your Progress",
+                text = "Progress Anda",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = if (isFullyActive) Color.Black else Color.Black.copy(alpha = 0.4f)
@@ -137,22 +137,22 @@ fun ActivateScreen() {
                 ) {
                     StatCard(
                         modifier = Modifier.weight(1f),
-                        title = "AI Sensitivity",
+                        title = "Sensitivitas AI",
                         value = when {
-                            aiSensitivity > 0.65f -> "Critical"
-                            aiSensitivity > 0.35f -> "Balanced"
-                            else -> "Relaxed"
+                            aiSensitivity > 0.65f -> "Kritis"
+                            aiSensitivity > 0.35f -> "Seimbang"
+                            else -> "Santai"
                         },
-                        subValue = "AI Intensity Level",
+                        subValue = "Tingkat Intensitas AI",
                         icon = R.drawable.ic_brain,
                         isActive = isFullyActive
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                     StatCard(
                         modifier = Modifier.weight(1f),
-                        title = "Analysis Count",
+                        title = "Jumlah Analisis",
                         value = "0",
-                        subValue = "Total Analyzed",
+                        subValue = "Total Teranalisis",
                         icon = R.drawable.ic_chart,
                         isActive = isFullyActive
                     )
@@ -172,14 +172,14 @@ fun ActivateScreen() {
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Locked",
+                            text = "Terkunci",
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF1A237E)
                         )
                         Text(
-                            text = if (!isEnabled) "Enable Logikey in settings to unlock"
-                            else "Switch keyboard to Logikey to unlock",
+                            text = if (!isEnabled) "Aktifkan Logikey di pengaturan untuk membuka"
+                            else "Ganti keyboard ke Logikey untuk membuka",
                             fontSize = 11.sp,
                             color = Color(0xFF1A237E).copy(alpha = 0.8f),
                             textAlign = androidx.compose.ui.text.style.TextAlign.Center,
@@ -192,9 +192,9 @@ fun ActivateScreen() {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // --- SECTION: TEST LOGIKEY ---
+            // --- SECTION: COBA LOGIKEY ---
             Text(
-                text = "Try Logikey",
+                text = "Coba Logikey",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
@@ -206,7 +206,7 @@ fun ActivateScreen() {
                 onValueChange = { testInput = it },
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = {
-                    Text("Type something to test fallacy detection...", fontSize = 14.sp)
+                    Text("Ketik sesuatu untuk menguji deteksi fallacy...", fontSize = 14.sp)
                 },
                 shape = RoundedCornerShape(16.dp),
                 colors = OutlinedTextFieldDefaults.colors(
@@ -221,9 +221,9 @@ fun ActivateScreen() {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // --- SECTION: QUICK GUIDE ---
+            // --- SECTION: PANDUAN CEPAT ---
             Text(
-                text = "Quick Guide",
+                text = "Panduan Cepat",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
@@ -249,8 +249,8 @@ fun ActivateScreen() {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // --- SECTION: FALLACY ENCYCLOPEDIA ---
-            Text("Fallacy Encyclopedia", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+            // --- SECTION: ENSIKLOPEDIA FALLACY ---
+            Text("Ensiklopedia Fallacy", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black)
             Spacer(modifier = Modifier.height(12.dp))
 
             FallacyInfoCard("Ad Hominem", "Menyerang karakter pribadi lawan bicara alih-alih substansi argumennya.")
@@ -315,13 +315,13 @@ fun StatusCard(isEnabled: Boolean, isSelected: Boolean, isActive: Boolean) {
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Column {
-                    Text(if (isActive) "Logikey is Active" else "Action Required", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    Text(if (isActive) "Logikey Aktif" else "Perlu Tindakan", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = when {
-                            !isEnabled -> "Step 1: Enable Logikey in System Settings"
-                            !isSelected -> "Step 2: Switch your current keyboard to Logikey"
-                            else -> "Your arguments are being analyzed in real-time"
+                            !isEnabled -> "Langkah 1: Aktifkan Logikey di Pengaturan Sistem"
+                            !isSelected -> "Langkah 2: Ganti keyboard aktif Anda ke Logikey"
+                            else -> "Argumen Anda sedang dianalisis secara real-time"
                         },
                         color = Color.White.copy(alpha = 0.9f), fontSize = 13.sp, lineHeight = 18.sp
                     )
@@ -333,7 +333,7 @@ fun StatusCard(isEnabled: Boolean, isSelected: Boolean, isActive: Boolean) {
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                val buttonText = when { !isEnabled -> "1. Enable in Settings"; !isSelected -> "2. Switch Keyboard"; else -> "Change Keyboard" }
+                val buttonText = when { !isEnabled -> "1. Aktifkan di Pengaturan"; !isSelected -> "2. Ganti Keyboard"; else -> "Ganti Keyboard" }
                 Icon(painterResource(R.drawable.ic_setting), null, tint = Color(0xFF1A237E), modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(buttonText, color = Color(0xFF1A237E), fontWeight = FontWeight.Bold)

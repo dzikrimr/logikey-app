@@ -7,9 +7,9 @@ sealed class NavDestination(
     val title: String,
     @DrawableRes val icon: Int
 ) {
-    object Activate : NavDestination("activate", "Activate", R.drawable.ic_activate)
-    object Insight : NavDestination("insight", "Insights", R.drawable.ic_insights)
-    object Settings : NavDestination("settings", "Settings", R.drawable.ic_setting)
+    object Activate : NavDestination("activate", "Aktivasi", R.drawable.ic_activate)
+    object Insight : NavDestination("insight", "Wawasan", R.drawable.ic_insights)
+    object Settings : NavDestination("settings", "Pengaturan", R.drawable.ic_setting)
 }
 
 val bottomNavItems = listOf(

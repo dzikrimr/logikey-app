@@ -59,6 +59,7 @@ fun OnboardingScreen2(navController: NavController) {
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
+    // Polling untuk update status secara real-time
     LaunchedEffect(Unit) {
         while (true) {
             val currentEnabled = KeyboardUtil.isKeyboardEnabled(context)
@@ -86,13 +87,13 @@ fun OnboardingScreen2(navController: NavController) {
                     .background(LightGrayBg, CircleShape)
                     .size(40.dp)
             ) {
-                Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = TextGray)
+                Icon(Icons.Default.ArrowBack, contentDescription = "Kembali", tint = TextGray)
             }
         }
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // --- ICON BOX (Tetap Biru Sesuai Request) ---
+        // --- ICON BOX ---
         Box(
             modifier = Modifier
                 .size(160.dp)
@@ -115,12 +116,12 @@ fun OnboardingScreen2(navController: NavController) {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // --- TITLE & DESC DINAMIS ---
+        // --- JUDUL & DESKRIPSI DINAMIS ---
         Text(
             text = when {
-                !isEnabled -> "Step 1: Enable Logikey"
-                !isSelected -> "Step 2: Select Logikey"
-                else -> "Ready to Go!"
+                !isEnabled -> "Langkah 1: Aktifkan Logikey"
+                !isSelected -> "Langkah 2: Pilih Logikey"
+                else -> "Siap Digunakan!"
             },
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
@@ -131,9 +132,9 @@ fun OnboardingScreen2(navController: NavController) {
 
         Text(
             text = when {
-                !isEnabled -> "Go to settings and toggle Logikey to 'On' in your keyboard list."
-                !isSelected -> "Now, switch your current keyboard to Logikey to finish setup."
-                else -> "Everything is set up correctly. You can now proceed to the app."
+                !isEnabled -> "Buka pengaturan dan aktifkan Logikey di daftar keyboard Anda."
+                !isSelected -> "Sekarang, ganti keyboard aktif Anda ke Logikey untuk menyelesaikan penyiapan."
+                else -> "Semuanya telah dikonfigurasi dengan benar. Anda dapat melanjutkan ke aplikasi."
             },
             fontSize = 15.sp,
             color = TextGray,
@@ -144,23 +145,23 @@ fun OnboardingScreen2(navController: NavController) {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // --- QUICK STEPS CARD ---
+        // --- KARTU LANGKAH CEPAT ---
         Card(
             colors = CardDefaults.cardColors(containerColor = LightGrayBg),
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Quick Steps:", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Text(text = "Langkah Cepat:", fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 Spacer(modifier = Modifier.height(16.dp))
-                StepItem(number = "1", text = "Enable Logikey in Settings", isDone = isEnabled)
-                StepItem(number = "2", text = "Switch keyboard to Logikey", isDone = isSelected)
+                StepItem(number = "1", text = "Aktifkan Logikey di Pengaturan", isDone = isEnabled)
+                StepItem(number = "2", text = "Ganti keyboard ke Logikey", isDone = isSelected)
             }
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // --- ACTION BUTTON DINAMIS ---
+        // --- TOMBOL AKSI DINAMIS ---
         Button(
             onClick = {
                 when {
@@ -197,9 +198,9 @@ fun OnboardingScreen2(navController: NavController) {
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = when {
-                        !isEnabled -> "Enable in Settings"
-                        !isSelected -> "Switch Keyboard"
-                        else -> "Continue"
+                        !isEnabled -> "Aktifkan di Pengaturan"
+                        !isSelected -> "Ganti Keyboard"
+                        else -> "Lanjutkan"
                     },
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold
@@ -211,7 +212,7 @@ fun OnboardingScreen2(navController: NavController) {
             onClick = { navController.navigate("onboarding3") },
             modifier = Modifier.padding(top = 8.dp)
         ) {
-            Text(text = "I'll do this later", color = TextGray, fontWeight = FontWeight.Medium)
+            Text(text = "Saya akan lakukan nanti", color = TextGray, fontWeight = FontWeight.Medium)
         }
     }
 }

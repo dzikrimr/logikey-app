@@ -64,9 +64,8 @@ fun OnboardingScreen1(navController: NavController) {
                     ),
                 contentAlignment = Alignment.Center
             ) {
-                // Ganti dengan resource icon otak Anda
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_brain), // Placeholder
+                    painter = painterResource(id = R.drawable.ic_brain),
                     contentDescription = "Logo",
                     tint = Color.White,
                     modifier = Modifier.size(80.dp)
@@ -77,7 +76,7 @@ fun OnboardingScreen1(navController: NavController) {
 
             // Judul
             Text(
-                text = "Welcome to Logikey",
+                text = "Selamat Datang di Logikey",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFF101820),
@@ -88,7 +87,7 @@ fun OnboardingScreen1(navController: NavController) {
 
             // Deskripsi
             Text(
-                text = "Your intelligent keyboard that detects logical fallacies in real-time and helps you communicate more effectively.",
+                text = "Keyboard cerdas yang mendeteksi fallacy secara real-time dan membantu Anda berkomunikasi dengan lebih efektif.",
                 fontSize = 16.sp,
                 color = TextGray,
                 textAlign = TextAlign.Center,
@@ -111,14 +110,14 @@ fun OnboardingScreen1(navController: NavController) {
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Get Started",
+                        text = "Mulai Sekarang",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.White
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_arrow_right), // Placeholder panah kanan
+                        painter = painterResource(id = R.drawable.ic_arrow_right),
                         contentDescription = null,
                         tint = Color.White,
                         modifier = Modifier.size(16.dp)

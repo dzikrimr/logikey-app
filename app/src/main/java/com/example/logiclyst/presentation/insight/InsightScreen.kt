@@ -23,7 +23,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -52,7 +51,7 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Insights", fontWeight = FontWeight.Bold) },
+                title = { Text("Wawasan", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = { /* Handle Back */ }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = null)
@@ -80,7 +79,7 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
 
                     Column(modifier = Modifier.fillMaxWidth()) {
                         Text(
-                            text = "Fallacy Distribution",
+                            text = "Distribusi Fallacy",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(bottom = 16.dp)
@@ -102,13 +101,14 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
                                     .height(150.dp),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text("No fallacy data recorded yet", color = Color.Gray)
+                                Text("Belum ada data fallacy tercatat", color = Color.Gray)
                             }
                         }
                     }
                 }
             }
 
+            // 2. Statistik Ringkas
             item {
                 Row(
                     modifier = Modifier
@@ -120,7 +120,7 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxHeight(),
-                        label = "Texts\nAnalyzed",
+                        label = "Teks\nTeranalisis",
                         value = history.size.toString(),
                         iconId = R.drawable.ic_document,
                         iconBg = Color(0xFFE8EAF6)
@@ -129,7 +129,7 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxHeight(),
-                        label = "Fallacies\nAvoided",
+                        label = "Fallacy\nTerhindar",
                         value = avoidedCount.toString(),
                         iconId = R.drawable.ic_shield,
                         iconBg = Color(0xFFE8F5E9)
@@ -137,16 +137,16 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
                 }
             }
 
-            // 3. Label History
+            // 3. Label Riwayat
             item {
-                Text("Recent Analyses", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text("Analisis Terbaru", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
 
-            // 4. List of Analyses
+            // 4. Daftar Analisis
             if (history.isEmpty()) {
                 item {
                     Text(
-                        "Your analysis history will appear here.",
+                        "Riwayat analisis Anda akan muncul di sini.",
                         color = Color.Gray,
                         fontSize = 14.sp,
                         textAlign = TextAlign.Center,
@@ -303,7 +303,7 @@ fun AnalysisHistoryItem(data: AnalysisData) {
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = if (isValid) "No Fallacy" else data.fallacyType,
+                            text = if (isValid) "Tanpa Fallacy" else data.fallacyType,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                             color = if (isValid) Color(0xFF2E7D32) else Color(0xFF8D6E63)
