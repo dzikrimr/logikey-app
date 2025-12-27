@@ -30,7 +30,7 @@
 </p>
 
 <p align="center">
-  <a href="https://drive.google.com/file/d/1UnB7u0cz255Bljq57RByMFdOwl5xr4wu/view?usp=sharing">
+  <a href="https://drive.google.com/file/d/1_C4yynp2rf7YDalYubIhN1mcavWay9HL/view?usp=sharing">
     <img src="https://img.shields.io/badge/—DOWNLOAD%20LOGIKEY%20APK%20—-1A237E?style=for-the-badge&logo=android&logoColor=white" width="400">
   </a>
 </p>
