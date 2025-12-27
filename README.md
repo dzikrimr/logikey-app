@@ -26,7 +26,13 @@
 </p>
 
 <p align="center">
-  Built with <b>Jetpack Compose</b> and the <b>Logiclyst Pro</b> AI model, this app helps users transform reactive communication habits into more proactive, logical, and persuasive interactions. 💡
+  Built with <b>Jetpack Compose</b> and the <b>Logikey</b> AI model, this app helps users transform reactive communication habits into more proactive, logical, and persuasive interactions. 💡
+</p>
+
+<p align="center">
+  <a href="https://drive.google.com/file/d/1_C4yynp2rf7YDalYubIhN1mcavWay9HL/view?usp=sharing">
+    <img src="https://img.shields.io/badge/—DOWNLOAD%20LOGIKEY%20APK%20—-1A237E?style=for-the-badge&logo=android&logoColor=white" width="400">
+  </a>
 </p>
 
 ---
@@ -75,7 +81,7 @@ This project is divided into two main repositories:
 Logikey operates at the system level as an **Input Method Service (IME)** with the following workflow:
 1. **Input Catching**: The keyboard captures text as the user types.
 2. **Dynamic Trigger**: If the user pauses for a specific interval, the text is sent to the **FastAPI Gateway**.
-3. **Model Inference**: The backend loads the Llama-3 base model with the **Logiclyst-LoRA** adapter to classify logical fallacies.
+3. **Model Inference**: The backend loads the Llama-3 base model with the **Logikey-LoRA** adapter to classify logical fallacies.
 4. **Haptic Feedback**: If a fallacy is detected, the device provides haptic feedback, and the keyboard's top bar displays a warning label.
 
 
