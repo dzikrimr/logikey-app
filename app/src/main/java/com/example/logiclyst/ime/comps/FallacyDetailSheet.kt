@@ -42,10 +42,10 @@ fun FallacyDetailSheet(
             .onGloballyPositioned { sheetHeight = it.size.height.toFloat() }
             .offset { IntOffset(0, animatedOffset.roundToInt().coerceAtLeast(0)) }
             .fillMaxWidth()
+            .heightIn(max = 500.dp)
             .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
             .background(Color.White)
     ) {
-        // --- GAGANG GESER (Pemicu tutup sheet) ---
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -75,7 +75,6 @@ fun FallacyDetailSheet(
                 .verticalScroll(rememberScrollState())
                 .padding(bottom = 32.dp)
         ) {
-            // Judul Fallacy
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Default.Warning, null, tint = AmberLogic, modifier = Modifier.size(24.dp))
                 Spacer(modifier = Modifier.width(12.dp))
@@ -89,7 +88,6 @@ fun FallacyDetailSheet(
 
             Spacer(modifier = Modifier.height(18.dp))
 
-            // Bagian Penjelasan
             Text("Penjelasan", fontWeight = FontWeight.Bold, color = DeepIndigo, fontSize = 14.sp)
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -101,7 +99,6 @@ fun FallacyDetailSheet(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Bagian Counter-argument
             Text("Saran Argumen Logis", fontWeight = FontWeight.Bold, color = DeepIndigo, fontSize = 14.sp)
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -115,7 +112,6 @@ fun FallacyDetailSheet(
                             .padding(16.dp),
                         verticalAlignment = Alignment.Top
                     ) {
-                        // Lingkaran Nomor
                         Box(
                             modifier = Modifier.size(24.dp).background(AmberLogic, CircleShape),
                             contentAlignment = Alignment.Center
@@ -128,7 +124,6 @@ fun FallacyDetailSheet(
                             )
                         }
                         Spacer(modifier = Modifier.width(12.dp))
-                        // Teks Argumen
                         Text(
                             text = arg,
                             fontSize = 14.sp,
@@ -144,7 +139,6 @@ fun FallacyDetailSheet(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Tombol Tutup
             Button(
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth().height(56.dp),

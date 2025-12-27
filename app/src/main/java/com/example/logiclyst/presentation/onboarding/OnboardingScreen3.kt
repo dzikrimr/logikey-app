@@ -24,7 +24,6 @@ import androidx.navigation.NavController
 import com.example.logiclyst.R
 
 
-// Warna tambahan untuk sukses
 val SuccessGreen = Color(0xFF2E7D32)
 val LightGreenBg = Color(0xFFE8F5E9)
 
@@ -33,12 +32,11 @@ fun OnboardingScreen3(navController: NavController, onComplete: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF8F9FA)) // Background sedikit keabuan agar kartu putih terlihat pop-out
+            .background(Color(0xFFF8F9FA))
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Ikon Sukses (Lingkaran bertumpuk)
         Box(
             modifier = Modifier
                 .size(200.dp)
@@ -78,7 +76,6 @@ fun OnboardingScreen3(navController: NavController, onComplete: () -> Unit) {
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        // Judul & Deskripsi
         Text(
             text = "Luar Biasa! Semua Siap",
             fontSize = 26.sp,
@@ -98,7 +95,6 @@ fun OnboardingScreen3(navController: NavController, onComplete: () -> Unit) {
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        // Tombol Aksi Utama
         Button(
             onClick = onComplete,
             modifier = Modifier

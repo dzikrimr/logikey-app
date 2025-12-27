@@ -34,7 +34,6 @@ fun KeyboardTopBar(
     val isAnalyzing by KeyboardState.isAnalyzing
     val isDetectionOn by KeyboardState.isDetectionOn
 
-    // Warna Biru jika normal/loading/OFF, Kuning jika fallacy terdeteksi DAN On
     val barColor = if (detectedFallacy != null && !isAnalyzing && isDetectionOn) AmberLogic else DeepIndigo
     val contentColor = if (detectedFallacy != null && !isAnalyzing && isDetectionOn) DeepIndigo else Color.White
 
@@ -49,7 +48,6 @@ fun KeyboardTopBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // Bagian Kiri: Logo & Nama
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
                     modifier = Modifier
@@ -59,10 +57,10 @@ fun KeyboardTopBar(
                     contentAlignment = Alignment.Center
                 ) {
                     androidx.compose.foundation.Image(
-                        painter = painterResource(id = R.drawable.logo_logikey), // Menggunakan logo baru
+                        painter = painterResource(id = R.drawable.logo_logikey),
                         contentDescription = "Logikey Logo",
                         modifier = Modifier
-                            .size(20.dp) // Ukuran sedikit disesuaikan agar pas di dalam lingkaran
+                            .size(20.dp)
                             .clip(CircleShape)
                     )
                 }
@@ -106,7 +104,6 @@ fun DetectionCard(fallacyName: String?, onClickDetail: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                // LOGIKA JUDUL DINAMIS
                 Text(
                     text = when {
                         !isDetectionOn -> "Detection Off"
@@ -119,7 +116,6 @@ fun DetectionCard(fallacyName: String?, onClickDetail: () -> Unit) {
                     fontSize = 14.sp
                 )
 
-                // LOGIKA SUB-JUDUL DINAMIS
                 Text(
                     text = when {
                         !isDetectionOn -> "Turn on to start AI analysis"
@@ -133,7 +129,6 @@ fun DetectionCard(fallacyName: String?, onClickDetail: () -> Unit) {
                 )
             }
 
-            // Bagian Kanan (Indikator/Detail/Loading)
             if (isDetectionOn) {
                 if (isAnalyzing) {
                     LoadingAnimation()
@@ -154,7 +149,6 @@ fun DetectionCard(fallacyName: String?, onClickDetail: () -> Unit) {
                     }
                 }
             } else {
-                // Jika Detection Off, tampilkan dot abu-abu atau kosongkan
                 Box(modifier = Modifier.size(8.dp).background(Color.LightGray, CircleShape))
             }
         }

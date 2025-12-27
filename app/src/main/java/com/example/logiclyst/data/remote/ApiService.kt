@@ -1,5 +1,6 @@
 package com.example.logiclyst.data.remote
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -9,9 +10,10 @@ interface LogiclystApi {
     suspend fun analyzeText(@Body request: AnalysisRequest): AnalysisResponse
 }
 
+@Keep
 data class AnalysisRequest(
-    val text: String,
-    val sensitivity: Float
+    @SerializedName("text") val text: String,
+    @SerializedName("sensitivity") val sensitivity: Float
 )
 
 data class AnalysisResponse(

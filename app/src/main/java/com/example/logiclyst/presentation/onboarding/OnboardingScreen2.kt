@@ -39,7 +39,6 @@ fun OnboardingScreen2(navController: NavController) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    // State status keyboard
     var isEnabled by remember { mutableStateOf(KeyboardUtil.isKeyboardEnabled(context)) }
     var isSelected by remember { mutableStateOf(KeyboardUtil.isKeyboardSelected(context)) }
 
@@ -48,7 +47,6 @@ fun OnboardingScreen2(navController: NavController) {
         isSelected = KeyboardUtil.isKeyboardSelected(context)
     }
 
-    // Mendeteksi saat kembali dari Settings sistem
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
@@ -59,7 +57,6 @@ fun OnboardingScreen2(navController: NavController) {
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
-    // Polling untuk update status secara real-time
     LaunchedEffect(Unit) {
         while (true) {
             val currentEnabled = KeyboardUtil.isKeyboardEnabled(context)
@@ -79,7 +76,6 @@ fun OnboardingScreen2(navController: NavController) {
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // --- TOP BAR ---
         Box(modifier = Modifier.fillMaxWidth()) {
             IconButton(
                 onClick = { navController.popBackStack() },
@@ -93,7 +89,6 @@ fun OnboardingScreen2(navController: NavController) {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // --- ICON BOX ---
         Box(
             modifier = Modifier
                 .size(160.dp)
@@ -116,7 +111,6 @@ fun OnboardingScreen2(navController: NavController) {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // --- JUDUL & DESKRIPSI DINAMIS ---
         Text(
             text = when {
                 !isEnabled -> "Langkah 1: Aktifkan Logikey"
@@ -145,7 +139,6 @@ fun OnboardingScreen2(navController: NavController) {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // --- KARTU LANGKAH CEPAT ---
         Card(
             colors = CardDefaults.cardColors(containerColor = LightGrayBg),
             shape = RoundedCornerShape(16.dp),
@@ -161,7 +154,6 @@ fun OnboardingScreen2(navController: NavController) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // --- TOMBOL AKSI DINAMIS ---
         Button(
             onClick = {
                 when {

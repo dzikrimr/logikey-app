@@ -29,7 +29,6 @@ class LogiclystIME : InputMethodService(), LifecycleOwner, ViewModelStoreOwner, 
     private var speechRecognizer: SpeechRecognizer? = null
     private val serviceScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
-    // --- Lifecycle & State Registry Setup (Mencegah Crash di Compose) ---
     private val lifecycleRegistry = LifecycleRegistry(this)
     private val savedStateRegistryController = SavedStateRegistryController.create(this)
     override val viewModelStore: ViewModelStore = ViewModelStore()
@@ -48,7 +47,6 @@ class LogiclystIME : InputMethodService(), LifecycleOwner, ViewModelStoreOwner, 
     override fun onCreateInputView(): View {
         val composeView = ComposeView(this)
 
-        // Menetapkan Owners agar Compose dapat berjalan di Service
         window?.window?.decorView?.let { decorView ->
             decorView.setViewTreeLifecycleOwner(this)
             decorView.setViewTreeViewModelStoreOwner(this)
@@ -87,7 +85,7 @@ class LogiclystIME : InputMethodService(), LifecycleOwner, ViewModelStoreOwner, 
             }
             " " -> {
                 ic.commitText(" ", 1)
-                analyzeTextContent() // Logika Fallacy
+                analyzeTextContent()
             }
             "ENTER" -> {
                 val action = currentInputEditorInfo.actionId
@@ -96,10 +94,8 @@ class LogiclystIME : InputMethodService(), LifecycleOwner, ViewModelStoreOwner, 
             }
             "MIC" -> triggerVoiceInput()
             "SHIFT_TOGGLE", "?123", "ABC", "=\\<", "1?2" -> {
-                // Hanya untuk perpindahan UI di Compose, tidak ada commit teks
             }
             else -> {
-                // Menangani input huruf, angka, simbol, dan emoji dari picker
                 ic.commitText(label, 1)
                 analyzeTextContent()
             }
@@ -134,7 +130,6 @@ class LogiclystIME : InputMethodService(), LifecycleOwner, ViewModelStoreOwner, 
                 val response = RetrofitClient.instance.analyzeText(request)
 
                 if (isActive) {
-                    // SIMPAN KE DATABASE LOKAL (Jalankan di background thread IO)
                     if (response.isFallacy == true) {
                         val db = AppDatabase.getDatabase(applicationContext)
                         db.analysisDao().insertAnalysis(
@@ -167,7 +162,7 @@ class LogiclystIME : InputMethodService(), LifecycleOwner, ViewModelStoreOwner, 
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE, "id-ID") // Paksa bahasa Indonesia
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, "id-ID")
         }
         speechRecognizer?.startListening(intent)
         Toast.makeText(this, "Mendengarkan...", Toast.LENGTH_SHORT).show()
@@ -177,12 +172,11 @@ class LogiclystIME : InputMethodService(), LifecycleOwner, ViewModelStoreOwner, 
         if (!matches.isNullOrEmpty()) {
             val text = matches[0]
             currentInputConnection?.commitText("$text ", 1)
-            analyzeTextContent() // Jalankan AI setelah bicara
+            analyzeTextContent()
         }
     }
 
     override fun onPartialResults(partialResults: Bundle?) {
-        // Bisa digunakan jika ingin teks muncul real-time saat bicara
     }
 
     override fun onError(error: Int) {

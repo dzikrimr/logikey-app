@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.logiclyst.R
 
-// Warna kustom sesuai gambar
 val PrimaryBlue = Color(0xFF1A237E)
 val TextGray = Color(0xFF546E7A)
 val LightGrayBg = Color(0xFFF8F9FA)
@@ -42,7 +41,6 @@ fun OnboardingScreen1(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Ikon Otak/Brain
             Box(
                 modifier = Modifier
                     .size(200.dp)
@@ -74,7 +72,6 @@ fun OnboardingScreen1(navController: NavController) {
 
             Spacer(modifier = Modifier.height(48.dp))
 
-            // Judul
             Text(
                 text = "Selamat Datang di Logikey",
                 fontSize = 28.sp,
@@ -85,7 +82,6 @@ fun OnboardingScreen1(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Deskripsi
             Text(
                 text = "Keyboard cerdas yang mendeteksi fallacy secara real-time dan membantu Anda berkomunikasi dengan lebih efektif.",
                 fontSize = 16.sp,
@@ -96,7 +92,6 @@ fun OnboardingScreen1(navController: NavController) {
 
             Spacer(modifier = Modifier.height(64.dp))
 
-            // Tombol Get Started
             Button(
                 onClick = { navController.navigate("onboarding2") },
                 modifier = Modifier

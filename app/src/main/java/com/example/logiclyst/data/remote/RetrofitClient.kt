@@ -7,7 +7,7 @@ import com.example.logiclyst.BuildConfig
 import okhttp3.logging.HttpLoggingInterceptor
 
 object RetrofitClient {
-    private const val BASE_URL = "http://142.170.89.112:23220/"
+    private val BASE_URL = BuildConfig.BASE_URL
 
     val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.HEADERS

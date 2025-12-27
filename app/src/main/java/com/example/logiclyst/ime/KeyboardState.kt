@@ -4,7 +4,6 @@ import androidx.compose.runtime.mutableStateOf
 import com.example.logiclyst.data.remote.AnalysisResponse
 
 object KeyboardState {
-    // State yang dipantau oleh Compose UI
     var detectedFallacy = mutableStateOf<String?>(null)
     val fullResponse = mutableStateOf<AnalysisResponse?>(null)
 

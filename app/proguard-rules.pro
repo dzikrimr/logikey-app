@@ -19,3 +19,23 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Keep all class in local
+-keep class com.example.logiclyst.data.local.** { *; }
+
+# Keep all class in remote
+-keep class com.example.logiclyst.data.remote.** { *; }
+
+# Room safe while runtime
+-keepclassmembers class * extends androidx.room.RoomDatabase {
+    public <init>(...);
+}
+-keep class androidx.room.Entity
+-keep class androidx.room.Dao
+-keep class androidx.room.Database
+-keep class androidx.room.PrimaryKey
+-keep class androidx.room.Query
+
+# Keep annotation SerializedName gson
+-keepattributes Signature, *Annotation*, EnclosingMethod
+-keep class com.google.gson.annotations.SerializedName { *; }

@@ -35,7 +35,6 @@ fun ActivateScreen() {
     val context = LocalContext.current
     val scrollState = rememberScrollState()
 
-    // Status keyboard
     var isEnabled by remember { mutableStateOf(KeyboardUtil.isKeyboardEnabled(context)) }
     var isSelected by remember { mutableStateOf(KeyboardUtil.isKeyboardSelected(context)) }
     val isFullyActive = isEnabled && isSelected
@@ -43,14 +42,12 @@ fun ActivateScreen() {
     val aiSensitivity by KeyboardState.aiSensitivity
     var testInput by remember { mutableStateOf("") }
 
-    // --- LOGIKA REFRESH OTOMATIS ---
     val lifecycleOwner = LocalLifecycleOwner.current
     val refreshStatus = {
         isEnabled = KeyboardUtil.isKeyboardEnabled(context)
         isSelected = KeyboardUtil.isKeyboardSelected(context)
     }
 
-    // Trigger saat kembali dari Settings sistem
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
@@ -61,7 +58,6 @@ fun ActivateScreen() {
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
-    // Polling setiap 500ms agar saat dialog Switch Keyboard ditutup, UI langsung update
     LaunchedEffect(Unit) {
         while (true) {
             refreshStatus()
@@ -75,7 +71,6 @@ fun ActivateScreen() {
             .background(Color(0xFFF9FAFB))
             .verticalScroll(scrollState)
     ) {
-        // --- Custom Top Bar ---
         Surface(
             modifier = Modifier.fillMaxWidth(),
             color = Color.White,
@@ -109,14 +104,12 @@ fun ActivateScreen() {
             }
         }
 
-        // --- Status Card ---
         StatusCard(isEnabled, isSelected, isFullyActive)
 
         Spacer(modifier = Modifier.height(32.dp))
 
         Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp)) {
 
-            // --- SECTION: PROGRESS ANDA ---
             Text(
                 text = "Progress Anda",
                 fontSize = 18.sp,
@@ -126,9 +119,7 @@ fun ActivateScreen() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Box pembungkus untuk overlay Lock
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
-                // Konten Progress (Selalu dirender, hanya diblur jika tidak aktif)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -158,7 +149,6 @@ fun ActivateScreen() {
                     )
                 }
 
-                // Tampilan Gembok & Instruksi (Hanya jika belum aktif)
                 if (!isFullyActive) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -192,7 +182,6 @@ fun ActivateScreen() {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // --- SECTION: COBA LOGIKEY ---
             Text(
                 text = "Coba Logikey",
                 fontSize = 18.sp,
@@ -221,7 +210,6 @@ fun ActivateScreen() {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // --- SECTION: PANDUAN CEPAT ---
             Text(
                 text = "Panduan Cepat",
                 fontSize = 18.sp,
@@ -249,7 +237,6 @@ fun ActivateScreen() {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // --- SECTION: ENSIKLOPEDIA FALLACY ---
             Text("Ensiklopedia Fallacy", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black)
             Spacer(modifier = Modifier.height(12.dp))
 

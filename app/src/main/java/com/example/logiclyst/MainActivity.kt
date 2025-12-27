@@ -10,13 +10,9 @@ import com.example.logiclyst.ui.theme.LogiclystTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Membuat instance UserPreferences
         val userPreferences = UserPreferences(applicationContext)
-
         setContent {
             LogiclystTheme {
-                // Teruskan instance ke NavGraph
                 NavGraph(userPreferences = userPreferences)
             }
         }

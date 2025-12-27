@@ -28,17 +28,16 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.logiclyst.R
 
-// Palet Warna
 val BgGray = Color(0xFFF9FAFB)
 val StrokeGray = Color(0xFFF3F4F6)
 val PrimaryDarkBlue = Color(0xFF1A237E)
 val ChartColors = listOf(
-    Color(0xFF4F46E5), // Indigo
-    Color(0xFF10B981), // Emerald
-    Color(0xFFF59E0B), // Amber
-    Color(0xFFEF4444), // Red
-    Color(0xFF8B5CF6), // Purple
-    Color(0xFF06B6D4)  // Cyan
+    Color(0xFF4F46E5),
+    Color(0xFF10B981),
+    Color(0xFFF59E0B),
+    Color(0xFFEF4444),
+    Color(0xFF8B5CF6),
+    Color(0xFF06B6D4)
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,7 +52,7 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
             CenterAlignedTopAppBar(
                 title = { Text("Wawasan", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle Back */ }) {
+                    IconButton(onClick = { }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = null)
                     }
                 },
@@ -69,7 +68,6 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
             contentPadding = PaddingValues(20.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            // 1. Chart Section (Pie Chart)
             item {
                 InsightsCard {
                     val fallacyOnlyData = distribution.filter {
@@ -80,9 +78,12 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
                     Column(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             text = "Distribusi Fallacy",
-                            fontSize = 16.sp,
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(bottom = 16.dp)
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 20.dp)
                         )
 
                         if (fallacyOnlyData.isNotEmpty()) {
@@ -108,7 +109,6 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
                 }
             }
 
-            // 2. Statistik Ringkas
             item {
                 Row(
                     modifier = Modifier
@@ -137,12 +137,10 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
                 }
             }
 
-            // 3. Label Riwayat
             item {
                 Text("Analisis Terbaru", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
 
-            // 4. Daftar Analisis
             if (history.isEmpty()) {
                 item {
                     Text(
@@ -196,7 +194,6 @@ fun PieChart(data: List<PieChartData>) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Legend Section
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)

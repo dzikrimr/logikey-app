@@ -28,7 +28,6 @@ import com.example.logiclyst.R
 import com.example.logiclyst.ime.KeyboardState
 import com.example.logiclyst.presentation.insight.InsightViewModel
 
-// Warna Dasar
 val BgGraySettings = Color(0xFFF9FAFB)
 val StrokeLight = Color(0xFFE5E7EB)
 val PrimaryBlueSettings = Color(0xFF1A237E)
@@ -44,17 +43,14 @@ fun SettingsScreen(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    // Hubungkan dengan State Global
     var isHapticEnabled by KeyboardState.isHapticEnabled
     var isDetectionOn by KeyboardState.isDetectionOn
     var isDarkMode by KeyboardState.isDarkMode
     var aiSensitivity by KeyboardState.aiSensitivity
 
-    // State UI Lokal
     var showHapticWarning by remember { mutableStateOf(false) }
     var showClearHistoryDialog by remember { mutableStateOf(false) }
 
-    // --- LOGIKA VALIDASI SISTEM (LIFECYCLE) ---
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
@@ -89,7 +85,6 @@ fun SettingsScreen(
                 .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            // --- SECTION: KONFIGURASI AI ---
             SettingsGroupCard(title = "Konfigurasi AI", iconId = R.drawable.ic_brain, iconBg = PrimaryBlueSettings) {
                 Column(modifier = Modifier.padding(top = 16.dp)) {
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -135,7 +130,6 @@ fun SettingsScreen(
                 }
             }
 
-            // --- SECTION: KUSTOMISASI KEYBOARD ---
             SettingsGroupCard(title = "Kustomisasi Keyboard", iconId = R.drawable.ic_keyboard, iconBg = KeyboardGreen) {
                 Column(modifier = Modifier.padding(top = 16.dp)) {
                     SettingSwitchItem(
@@ -173,7 +167,6 @@ fun SettingsScreen(
                 }
             }
 
-            // --- SECTION: PRIVASI & KEAMANAN ---
             SettingsGroupCard(title = "Privasi & Keamanan", iconId = R.drawable.ic_shield, iconBg = Color(0xFFF9A825)) {
                 Column(modifier = Modifier.padding(top = 16.dp)) {
                     Box(
@@ -207,8 +200,6 @@ fun SettingsScreen(
             }
         }
     }
-
-    // --- DIALOGS ---
 
     if (showHapticWarning) {
         AlertDialog(

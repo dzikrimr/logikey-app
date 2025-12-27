@@ -1,5 +1,6 @@
 package com.example.logiclyst.data.local
 
+import androidx.annotation.Keep
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -23,4 +24,5 @@ interface AnalysisDao {
     suspend fun clearAllHistory()
 }
 
+@Keep
 data class FallacyCount(val fallacyType: String, val count: Int)

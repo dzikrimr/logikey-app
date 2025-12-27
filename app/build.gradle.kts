@@ -21,8 +21,10 @@ android {
             }
         }
         val apiKey = properties.getProperty("APP_SECRET_KEY") ?: ""
+        val baseUrl = properties.getProperty("BASE_URL") ?: "\"http://localhost/\""
 
         buildConfigField("String", "APP_SECRET_KEY", "\"$apiKey\"")
+        buildConfigField("String", "BASE_URL", baseUrl)
 
         applicationId = "com.example.logiclyst"
         minSdk = 29
@@ -35,7 +37,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

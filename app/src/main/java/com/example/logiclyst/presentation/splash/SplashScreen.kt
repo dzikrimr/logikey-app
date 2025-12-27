@@ -20,9 +20,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController, onTimeout: () -> Unit) {
-    // Memberikan delay sebelum pindah ke halaman onboarding/utama
     LaunchedEffect(Unit) {
-        delay(2000) // Tampil selama 2 detik
+        delay(2000)
         onTimeout()
     }
 
@@ -31,14 +30,13 @@ fun SplashScreen(navController: NavController, onTimeout: () -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        // Konten Utama (Logo & Nama App)
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logo_logikey), // Asset yang Anda siapkan
+                painter = painterResource(id = R.drawable.logo_logikey),
                 contentDescription = "Logickey Logo",
                 modifier = Modifier.size(180.dp)
             )
@@ -47,7 +45,7 @@ fun SplashScreen(navController: NavController, onTimeout: () -> Unit) {
                 text = "Logikey",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFF1A237E), // Biru Utama
+                color = Color(0xFF1A237E),
                 letterSpacing = 1.sp
             )
         }

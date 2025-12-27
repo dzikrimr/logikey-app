@@ -24,7 +24,6 @@ fun NavGraph(userPreferences: UserPreferences) {
     NavHost(navController = navController, startDestination = "splash") {
         composable("splash") {
             SplashScreen(navController) {
-                // Logika dijalankan setelah delay di SplashScreen selesai
                 if (onboardingCompleted != null) {
                     val destination = if (onboardingCompleted == true) "main" else "onboarding1"
                     navController.navigate(destination) {
@@ -41,7 +40,6 @@ fun NavGraph(userPreferences: UserPreferences) {
         }
         composable("onboarding3") {
             OnboardingScreen3(navController) {
-                // Gunakan Coroutine untuk menyimpan status saat tombol diklik
                 CoroutineScope(Dispatchers.IO).launch {
                     userPreferences.saveOnboardingStatus(true)
                 }

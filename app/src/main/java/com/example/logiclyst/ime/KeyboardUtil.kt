@@ -11,7 +11,6 @@ object KeyboardUtil {
         return enabledMethods.any { it.packageName == context.packageName }
     }
 
-    // Mengecek apakah keyboard sedang "DIPAKAI" saat ini sebagai default
     fun isKeyboardSelected(context: Context): Boolean {
         val currentId = Settings.Secure.getString(
             context.contentResolver,
