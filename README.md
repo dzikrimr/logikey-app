@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://35chue4gfs.ufs.sh/f/Ox9zBraWD5RJUzLYJ83gsd0y1XLa73Rh2fMKv9tljkASDHe8" width="100%" style="border-radius: 15px;">
+  <img src="https://35chue4gfs.ufs.sh/f/Ox9zBraWD5RJ9fod3hck4Lf5baYcCK2ugX1z6sQPdlxqyErv" width="100%" style="border-radius: 15px;">
 </p>
 
 <h1 align="center">
@@ -85,7 +85,10 @@ Logikey operates at the system level as an **Input Method Service (IME)** with t
 ## 📸 Prototype & User Interface
 
 <p align="center">
-  <img src="https://35chue4gfs.ufs.sh/f/Ox9zBraWD5RJREOULQsDN6HJx37Xub8QqZUSKsIBFY9jzm05" width="100%" style="border-radius: 12px;">
+  <img src="https://35chue4gfs.ufs.sh/f/Ox9zBraWD5RJV8zkJUK8KhitAJeyUcr513M6aELuGH07VCZX" width="100%" style="border-radius: 12px;">
+</p>
+<p align="center">
+  <img src="https://35chue4gfs.ufs.sh/f/Ox9zBraWD5RJ7c6Dz6RqpV4riyNOhtnwj5c21kJXKbzFuLaD" width="100%" style="border-radius: 12px;">
 </p>
 
 ---
