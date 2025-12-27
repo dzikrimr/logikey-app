@@ -10,5 +10,6 @@ data class AnalysisEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val originalText: String,
     val fallacyType: String,
-    val timestamp: Long = System.currentTimeMillis()
+    val timestamp: Long = System.currentTimeMillis(),
+    val processingTime: Long,
 )

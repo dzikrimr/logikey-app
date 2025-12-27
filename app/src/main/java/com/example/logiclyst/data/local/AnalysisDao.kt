@@ -22,6 +22,12 @@ interface AnalysisDao {
 
     @Query("DELETE FROM analysis_history")
     suspend fun clearAllHistory()
+
+    @Query("SELECT COUNT(*) FROM analysis_history")
+    fun getTotalAnalysisCount(): Flow<Int>
+
+    @Query("SELECT SUM(processingTime) FROM analysis_history")
+    fun getTotalProcessingTime(): Flow<Long?>
 }
 
 @Keep

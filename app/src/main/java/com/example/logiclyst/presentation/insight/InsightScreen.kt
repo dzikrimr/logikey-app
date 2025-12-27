@@ -45,7 +45,12 @@ val ChartColors = listOf(
 fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
     val history by viewModel.analysisHistory.collectAsState(initial = emptyList())
     val distribution by viewModel.fallacyDistribution.collectAsState(initial = emptyList())
-    val avoidedCount by viewModel.fallaciesAvoidedCount.collectAsState(initial = 0)
+    val totalMs by viewModel.totalThinkingTime.collectAsState()
+    val displayTime = when {
+        totalMs < 1000 -> "${totalMs}ms"
+        totalMs < 60000 -> "${totalMs / 1000}dtk"
+        else -> "${totalMs / 60000}mnt"
+    }
 
     Scaffold(
         topBar = {
@@ -126,13 +131,11 @@ fun InsightScreen(viewModel: InsightViewModel = viewModel()) {
                         iconBg = Color(0xFFE8EAF6)
                     )
                     StatBox(
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxHeight(),
-                        label = "Fallacy\nTerhindar",
-                        value = avoidedCount.toString(),
-                        iconId = R.drawable.ic_shield,
-                        iconBg = Color(0xFFE8F5E9)
+                        modifier = Modifier.weight(1f).fillMaxHeight(),
+                        label = "Waktu\nBerpikir",
+                        value = displayTime,
+                        iconId = R.drawable.ic_brain,
+                        iconBg = Color(0xFFF3E5F5)
                     )
                 }
             }

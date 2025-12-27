@@ -25,13 +25,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.logiclyst.R
 import com.example.logiclyst.ime.KeyboardState
 import com.example.logiclyst.ime.KeyboardUtil
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 
 @Composable
-fun ActivateScreen() {
+fun ActivateScreen(viewModel: ActivateViewModel = viewModel()) {
     val context = LocalContext.current
     val scrollState = rememberScrollState()
 
@@ -41,6 +43,7 @@ fun ActivateScreen() {
 
     val aiSensitivity by KeyboardState.aiSensitivity
     var testInput by remember { mutableStateOf("") }
+    val totalCount by viewModel.totalAnalysisCount.collectAsState()
 
     val lifecycleOwner = LocalLifecycleOwner.current
     val refreshStatus = {
@@ -142,7 +145,7 @@ fun ActivateScreen() {
                     StatCard(
                         modifier = Modifier.weight(1f),
                         title = "Jumlah Analisis",
-                        value = "0",
+                        value = totalCount.toString(),
                         subValue = "Total Teranalisis",
                         icon = R.drawable.ic_chart,
                         isActive = isFullyActive

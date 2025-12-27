@@ -1,5 +1,6 @@
 package com.example.logiclyst.ime
 
+import android.R.attr.duration
 import android.content.Intent
 import android.inputmethodservice.InputMethodService
 import android.os.Bundle
@@ -80,7 +81,12 @@ class LogiclystIME : InputMethodService(), LifecycleOwner, ViewModelStoreOwner, 
         val ic = currentInputConnection ?: return
         when (label) {
             "BACKSPACE" -> {
-                ic.deleteSurroundingText(1, 0)
+                val selectedText = ic.getSelectedText(0)
+                if (selectedText.isNullOrEmpty()) {
+                    ic.deleteSurroundingText(1, 0)
+                } else {
+                    ic.commitText("", 1)
+                }
                 analyzeTextContent()
             }
             " " -> {
@@ -106,6 +112,7 @@ class LogiclystIME : InputMethodService(), LifecycleOwner, ViewModelStoreOwner, 
         val ic = currentInputConnection ?: return
         val extractedText = ic.getExtractedText(ExtractedTextRequest(), 0)
         val textToAnalyze = extractedText?.text?.toString() ?: ""
+        val startTime = System.currentTimeMillis()
 
         analysisJob?.cancel()
 
@@ -128,23 +135,27 @@ class LogiclystIME : InputMethodService(), LifecycleOwner, ViewModelStoreOwner, 
                 )
 
                 val response = RetrofitClient.instance.analyzeText(request)
+                val endTime = System.currentTimeMillis() // Selesai
+                val duration = endTime - startTime
 
                 if (isActive) {
-                    if (response.isFallacy == true) {
-                        val db = AppDatabase.getDatabase(applicationContext)
-                        db.analysisDao().insertAnalysis(
-                            AnalysisEntity(
-                                originalText = textToAnalyze,
-                                fallacyType = response.label ?: "Unknown fallacy"
-                            )
+                    val db = AppDatabase.getDatabase(applicationContext)
+                    db.analysisDao().insertAnalysis(
+                        AnalysisEntity(
+                            originalText = textToAnalyze,
+                            fallacyType = if (response.isFallacy == true) response.label ?: "Unknown" else "None",
+                            processingTime = duration
                         )
-                    }
+                    )
 
                     withContext(Dispatchers.Main) {
                         KeyboardState.isAnalyzing.value = false
                         if (response.isFallacy == true) {
                             KeyboardState.detectedFallacy.value = response.label
                             KeyboardState.fullResponse.value = response
+                        } else {
+                            KeyboardState.detectedFallacy.value = null
+                            KeyboardState.fullResponse.value = null
                         }
                     }
                 }

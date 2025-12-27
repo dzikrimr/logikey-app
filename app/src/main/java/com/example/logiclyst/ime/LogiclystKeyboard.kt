@@ -5,13 +5,20 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.emoji2.emojipicker.EmojiPickerView
 import com.example.logiclyst.R
@@ -45,9 +52,6 @@ fun LogiclystKeyboard(
     val iconTint = if (isDarkMode) Color.White else Color.Black
 
     val handleKeyClick: (String) -> Unit = { label ->
-        if (isHapticEnabled) {
-            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-        }
         onKeyClick(label)
     }
 
@@ -99,17 +103,16 @@ fun LogiclystKeyboard(
                 }
                 Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp)) {
                     KeyboardKey(label = "ABC", backgroundColor = functionalKeyBg, textColor = mainTextColor, weight = 1.5f, onClick = { viewMode = 0 })
-                    KeyboardKey(label = "space", backgroundColor = keyBgColor, textColor = mainTextColor, weight = 3f, onClick = { handleKeyClick(" ") })
+                    RepeatingKey(label = "space", backgroundColor = keyBgColor, textColor = mainTextColor, weight = 3f, onClick = { handleKeyClick(" ") })
                     BackspaceKey(onKeyClick = handleKeyClick, bgColor = functionalKeyBg)
                 }
             } else {
                 Column(modifier = Modifier.padding(horizontal = 1.dp, vertical = 4.dp)) {
 
-                    // Baris Angka
                     if (!isSymbolMode || (isSymbolMode && symbolPage == 0)) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             numericRow.forEach { num ->
-                                KeyboardKey(
+                                RepeatingKey(
                                     label = num,
                                     backgroundColor = keyBgColor,
                                     textColor = mainTextColor,
@@ -123,7 +126,6 @@ fun LogiclystKeyboard(
                         if (!isSymbolMode && shiftState == 0) char.lowercase() else char
                     }
 
-                    // Penentuan baris A dan B
                     val rowA = if (isSymbolMode) {
                         if (symbolPage == 0) symbolRowsPage1[0] else symbolRowsPage2[0]
                     } else {
@@ -136,21 +138,18 @@ fun LogiclystKeyboard(
                         qwertyRows[1]
                     }
 
-                    // Baris Huruf/Simbol 1
                     Row(modifier = Modifier.fillMaxWidth()) {
                         rowA.map { processLabel(it) }.forEach { label ->
-                            KeyboardKey(label = label, backgroundColor = keyBgColor, textColor = mainTextColor, onClick = { handleKeyClick(label) })
+                            RepeatingKey(label = label, backgroundColor = keyBgColor, textColor = mainTextColor, onClick = { handleKeyClick(label) })
                         }
                     }
 
-                    // Baris Huruf/Simbol 2
                     Row(modifier = Modifier.fillMaxWidth().padding(horizontal = if (isSymbolMode) 4.dp else 18.dp)) {
                         rowB.map { processLabel(it) }.forEach { label ->
-                            KeyboardKey(label = label, backgroundColor = keyBgColor, textColor = mainTextColor, onClick = { handleKeyClick(label) })
+                            RepeatingKey(label = label, backgroundColor = keyBgColor, textColor = mainTextColor, onClick = { handleKeyClick(label) })
                         }
                     }
 
-                    // Baris 3
                     Row(modifier = Modifier.fillMaxWidth()) {
                         KeyboardKey(
                             icon = if (isSymbolMode) null else R.drawable.ic_arrow_up,
@@ -187,7 +186,7 @@ fun LogiclystKeyboard(
 
                         rowC.forEach { char ->
                             val label = processLabel(char)
-                            KeyboardKey(label = label, backgroundColor = keyBgColor, textColor = mainTextColor, onClick = {
+                            RepeatingKey(label = label, backgroundColor = keyBgColor, textColor = mainTextColor, onClick = {
                                 handleKeyClick(label)
                                 if (shiftState == 1) shiftState = 0
                             })
@@ -200,15 +199,14 @@ fun LogiclystKeyboard(
                         BackspaceKey(onKeyClick = handleKeyClick, bgColor = functionalKeyBg)
                     }
 
-                    // Baris Terakhir
                     Row(modifier = Modifier.fillMaxWidth()) {
                         KeyboardKey(label = if (isSymbolMode) "ABC" else "?123", backgroundColor = functionalKeyBg, textColor = mainTextColor, weight = 1.5f, onClick = {
                             if (isHapticEnabled) haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             isSymbolMode = !isSymbolMode; symbolPage = 0
                         })
-                        KeyboardKey(label = ",", backgroundColor = keyBgColor, textColor = mainTextColor, weight = 1f, onClick = { handleKeyClick(",") })
-                        KeyboardKey(label = "space", backgroundColor = keyBgColor, weight = 4f, textColor = Color.Gray, onClick = { handleKeyClick(" ") })
-                        KeyboardKey(label = ".", backgroundColor = keyBgColor, textColor = mainTextColor, weight = 1f, onClick = { handleKeyClick(".") })
+                        RepeatingKey(label = ",", backgroundColor = keyBgColor, textColor = mainTextColor, weight = 1f, onClick = { handleKeyClick(",") })
+                        RepeatingKey(label = "space", backgroundColor = keyBgColor, weight = 4f, textColor = Color.Gray, onClick = { handleKeyClick(" ") })
+                        RepeatingKey(label = ".", backgroundColor = keyBgColor, textColor = mainTextColor, weight = 1f, onClick = { handleKeyClick(".") })
                         KeyboardKey(icon = R.drawable.ic_emoji, backgroundColor = functionalKeyBg, iconColor = iconTint, weight = 1f, onClick = {
                             if (isHapticEnabled) haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             viewMode = 1
@@ -219,7 +217,6 @@ fun LogiclystKeyboard(
             }
         }
 
-        // Overlay Detail Sheet
         if (showDetail && response != null) {
             Box(
                 modifier = Modifier
@@ -255,6 +252,42 @@ fun LogiclystKeyboard(
             }
         }
     }
+}
+
+@Composable
+fun RowScope.RepeatingKey(
+    label: String,
+    backgroundColor: Color,
+    textColor: Color = Color.Black,
+    weight: Float = 1f,
+    onClick: (String) -> Unit
+) {
+    val haptic = LocalHapticFeedback.current
+    val isHapticEnabled by KeyboardState.isHapticEnabled
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+
+    LaunchedEffect(isPressed) {
+        if (isPressed) {
+            if (isHapticEnabled) haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+            onClick(label)
+            delay(450)
+            while (isPressed) {
+                if (isHapticEnabled) haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                onClick(label)
+                delay(60)
+            }
+        }
+    }
+
+    KeyboardKey(
+        label = label,
+        backgroundColor = backgroundColor,
+        textColor = textColor,
+        weight = weight,
+        interactionSource = interactionSource,
+        onClick = {}
+    )
 }
 
 @Composable
